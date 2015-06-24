@@ -8,6 +8,7 @@
   <script src="dist/fusty-flow.js"></script>
   <script src="dist/fusty-flow-factory.js"></script>
   <script src="dist/ng-flow.js"></script>
+   <script src="dist/jquery-2.1.4.min.js"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="app.js"></script>
@@ -51,6 +52,11 @@
     </div>
     <div class="clear"></div>
   </div>
+</div>
+
+<div  ng-controller="ibeisCtrl"> 
+<div>
+ <img style="display:block;" ng-src="{{image}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
 </div>
 </body>
 </html>
