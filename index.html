@@ -9,32 +9,39 @@
   <script src="dist/fusty-flow-factory.js"></script>
   <script src="dist/ng-flow.js"></script>
    <script src="dist/jquery-2.1.4.min.js"></script>
+   <script type="text/javascript" src="js/exif.js"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="app.js"></script>
+  <script type="text/javascript" src="js/exif.js"></script>
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
         rel="stylesheet"/>
 </head>
-<body flow-prevent-drop flow-drag-enter="dropClass='drag-over'" flow-drag-leave="dropClass=''">
+<body flow-prevent-drop flow-drag-enter="dropClass='drag-over'" flow-drag-leave="dropClass=''" ng-controller="ibeisCtrl">
 
  <h3><a name="gallery-example" class="anchor" href="#gallery-example"><span class="octicon octicon-link"></span></a>
   IBEIS Gallery Upload</h3>
 <a href="index.html"><img class ="logo" src="img/logo_site.png"></a>
-<div flow-init
+<div flow-init 
      flow-files-submitted="$flow.upload()"
-     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
-  <div class="drop" flow-drop ng-class="dropClass">
-    <span class="btn btn-default" flow-btn>Upload Image</span>
+     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"   >
+  <div  class="drop" flow-drop ng-class="dropClass">
+    <span  flow-btn class="btn btn-default" /> Upload Image</span>
     <span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder of Images</span>
     <b>OR</b>
     Drag And Drop your images here
   </div>
   <br/>
+  Upload file to read Exif data
+<input id="file-input" type="file" ng-click="inputInfo()" class="btn btn-sm-primary"/>
+<br/><br/>
+<br/>
+
   <div>
     <div ng-repeat="file in $flow.files" class="gallery-box">
-      <span class="title">{{file.name}}</span>
+      <span   class="title">{{file.name}}</span>
       <div class="thumbnail" ng-show="$flow.files.length">
-        <img flow-img="file" />
+        <img  id="$index" ng-click="openInfo()" flow-img="file" />
       </div>
       <div class="progress progress-striped" ng-class="{active: file.isUploading()}">
         <div class="progress-bar" role="progressbar"
@@ -54,9 +61,13 @@
   </div>
 </div>
 
-<div  ng-controller="ibeisCtrl"> 
-<div>
- <img style="display:block;" ng-src="{{image}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
-</div>
+<div  > 
+<button id="base64test" ng-click="Imgfunc()">Base64 Test</button><br/>
+
+ <img  style="display:block;" ng-src="{{image}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
+</div> 
+<script type="text/javascript">
+
+</script>
 </body>
 </html>
