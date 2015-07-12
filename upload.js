@@ -132,10 +132,10 @@
                 
                 xhr.open("POST", "http://131.193.42.62:5005/api/image/");
                 xhr.setRequestHeader("Authorization","IBEIS:N37Z3rzJY53IjcuHHNZQK9KqqXs=");
-               
-                xhr.setRequestHeader("secret","CB73808F-A6F6-094B-5FCD-385EBAFF8FC0");
+                xhr.setRequestHeader("Secret","CB73808F-A6F6-094B-5FCD-385EBAFF8FC0");
+                xhr.setRequestHeader("Username","ibeis");
+                xhr.setRequestHeader("Password","ibeis");
                 xhr.setRequestHeader("crossDomain",true);
-                xhr.setRequestHeader("dataType",'jsonp');
                 xhr.onload = function() {
 
                     if(this.status==400){
