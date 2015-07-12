@@ -126,7 +126,7 @@
                 /* Lets build a FormData object*/
                 var fd = new FormData();
                 
-                fd.append("image_zip_archive", file);
+                fd.append("image", file);
                 var xhr = new XMLHttpRequest();
                 var output = document.getElementById("output");
                 
