@@ -33,7 +33,8 @@
   </div>
   <br/>
   Upload file to read Exif data
-<input id="file-input" type="file" ng-click="inputInfo()" class="btn btn-sm-primary"/>
+<input id="file-input" type="file" ng-click="inputInfo()" class="btn btn-sm-primary" />
+<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
 <br/><br/>
 <br/>
 

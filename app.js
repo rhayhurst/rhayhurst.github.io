@@ -38,6 +38,7 @@ var app = angular.module('app', ['flow'])
   $.ajax(request).success(function(result) {
   $scope.image =  result.response;
   });
+   
 
     $scope.openInfo = function(){
     var image = new Image();
@@ -66,4 +67,24 @@ var app = angular.module('app', ['flow'])
         };
         image.src = $scope.image;
       }
+    $scope.uploadFile = function(files) {
+    var fd = new FormData();
+    //Take the first selected file
+    fd.append("file", files[0]);
+return $http({
+
+        method: "POST",
+        url: 'http://131.193.42.62:5005/api/image/',
+        withCredentials: true,
+        crossDomain: true,
+        data: {fd},
+        headers: {
+             'Content-Type': undefined,
+            'Authorization': 'IBEIS:N37Z3rzJY53IjcuHHNZQK9KqqXs=',
+        },
+        transformRequest: angular.identity
+      }
+    ).success(function(result){alert(result+"success!");}).error(function(e){alert(e+" error");} );
+
+};
 });
