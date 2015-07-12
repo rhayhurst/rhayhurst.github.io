@@ -26,7 +26,7 @@ var app = angular.module('app', ['flow'])
   {
  
       var request ={   
-        url: "http://131.193.42.62:5005/api/image/2",
+        url: "http://131.193.42.62:5006/api/image/2",
         method: "GET",
         crossDomain: true,
         dataType: 'jsonp',
