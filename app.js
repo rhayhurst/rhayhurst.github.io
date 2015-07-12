@@ -84,7 +84,12 @@ return $http({
         },
         transformRequest: angular.identity
       }
-    ).success(function(result){alert(result+"success!");}).error(function(e){alert(e+" error");} );
-
+    ).success(function(result)
+    {
+      alert(result+"success!");
+    })
+    .error(function(e)
+      {alert(e+" error");} 
+      );
 };
 });

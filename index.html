@@ -9,11 +9,13 @@
   <script src="dist/fusty-flow-factory.js"></script>
   <script src="dist/ng-flow.js"></script>
    <script src="dist/jquery-2.1.4.min.js"></script>
-   <script type="text/javascript" src="js/exif.js"></script>
+
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="app.js"></script>
   <script type="text/javascript" src="js/exif.js"></script>
+   <script type="text/javascript" src="zip.js"></script>
+
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
         rel="stylesheet"/>
 </head>
@@ -34,9 +36,25 @@
   <br/>
   Upload file to read Exif data
 <input id="file-input" type="file" ng-click="inputInfo()" class="btn btn-sm-primary" />
-<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+<button id="zbutton">Select Zip Archive</button>
 <br/><br/>
-<br/>
+<br><br>
+
+        <div id="drag">DROP!
+            <button id="fbutton">Select File(s)</button>
+            <button id="dbutton">Select Directory</button>
+            <button id="zbutton">Select Zip Archive</button>
+            <input id="einput" type="input" placeholder="External Image URL"><button id="external">Submit</button>
+        </div>
+        <input type="file" id="filesinput" multiple>
+        <input type="file" id="directoryinput" multiple webkitdirectory>
+        <input type="file" accept="application/zip" id="zipinput">
+
+
+        <div id="output"></div>
+        <div id="error"></div>
+
+    <script type="text/javascript" src="upload.js"></script>
 
   <div>
     <div ng-repeat="file in $flow.files" class="gallery-box">
@@ -67,8 +85,6 @@
 
  <img  style="display:block;" ng-src="{{image}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
 </div> 
-<script type="text/javascript">
 
-</script>
 </body>
 </html>
