@@ -143,18 +143,20 @@
                     if(this.status==400){
                        document.getElementById("error").innerHTML = JSON.parse(xhr.responseText).error.message;
                     } else {
-                        var links = JSON.parse(xhr.responseText).upload.links;
-                        var dimage = links.small_square;
-                        var dlink = links.imgur_page;
 
-                        var a = document.createElement("a");
-                        a.href = dlink;
+                        alert(xhr.responseText);
+                        // var links = JSON.parse(xhr.responseText).upload.links;
+                        // var dimage = links.small_square;
+                        // var dlink = links.imgur_page;
 
-                        var img = document.createElement("img");
-                        img.src = dimage;
+                        // var a = document.createElement("a");
+                        // a.href = dlink;
 
-                        a.appendChild(img);
-                        output.appendChild(a);
+                        // var img = document.createElement("img");
+                        // img.src = dimage;
+
+                        // a.appendChild(img);
+                        // output.appendChild(a);
 
                         document.body.className = "uploaded";
                     }
