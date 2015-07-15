@@ -27,7 +27,7 @@ var app = angular.module('app', ['flow'])
  
       var request ={   
         url: "http://131.193.42.62:5006/api/core/helloworld",
-        method: "POST",
+        method: "GET",
         
      }
 
