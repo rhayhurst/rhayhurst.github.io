@@ -32,7 +32,7 @@ var app = angular.module('app', ['flow'])
      }
 
   $.ajax(request).success(function(result) {
-  $scope.image =  result.response;
+  alert(result);
   });
    
 
