@@ -26,13 +26,9 @@ var app = angular.module('app', ['flow'])
   {
  
       var request ={   
-        url: "http://131.193.42.62:5006/api/image/2",
-        method: "GET",
-        crossDomain: true,
-        dataType: 'jsonp',
-        headers: {
-            'Authorization': 'IBEIS:N37Z3rzJY53IjcuHHNZQK9KqqXs=',
-        }
+        url: "http://131.193.42.62:5006/api/core/helloworld",
+        method: "POST",
+        
      }
 
   $.ajax(request).success(function(result) {
@@ -67,29 +63,4 @@ var app = angular.module('app', ['flow'])
         };
         image.src = $scope.image;
       }
-    $scope.uploadFile = function(files) {
-    var fd = new FormData();
-    //Take the first selected file
-    fd.append("file", files[0]);
-return $http({
-
-        method: "POST",
-        url: 'http://131.193.42.62:5005/api/image/',
-        withCredentials: true,
-        crossDomain: true,
-        data: {fd},
-        headers: {
-             'Content-Type': undefined,
-            'Authorization': 'IBEIS:N37Z3rzJY53IjcuHHNZQK9KqqXs=',
-        },
-        transformRequest: angular.identity
-      }
-    ).success(function(result)
-    {
-      alert(result+"success!");
-    })
-    .error(function(e)
-      {alert(e+" error");} 
-      );
-};
 });
