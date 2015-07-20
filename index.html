@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- test -->
 <html ng-app="app" flow-init>
 <head>
   <title>Download url</title>
@@ -37,6 +37,11 @@
   Upload file to read Exif data
 <input id="file-input" type="file" ng-click="inputInfo()" class="btn btn-sm-primary" />
 <button id="zbutton">Select Zip Archive</button>
+
+<div  ng-controller="ibeisCtrl"> 
+<div>
+ <img style="display:block;" src="{{imageIBEIS}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
+</div>
 <br/><br/>
 <br><br>
 
@@ -83,7 +88,6 @@
 <div  > 
 <button id="base64test" ng-click="Imgfunc()">Base64 Test</button><br/>
 
- <img  style="display:block;" ng-src="{{image}}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope"></div>
 </div> 
 
 </body>
