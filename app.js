@@ -6,10 +6,10 @@
  * @name app
  * @type {angular.Module}
  */
-var app = angular.module('app', ['flow']).config(['flowFactoryProvider', 
-  function (flowFactoryProvider) 
+var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
+  function (flowFactoryProvider)
   {
-    flowFactoryProvider.defaults = 
+    flowFactoryProvider.defaults =
     {
       target: '',
       permanentErrors: [500, 501],
@@ -18,7 +18,7 @@ var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
       simultaneousUploads: 1
     };
 
-    flowFactoryProvider.on('catchAll', function (event) 
+    flowFactoryProvider.on('catchAll', function (event)
     {
       console.log('catchAll', arguments);
     });
@@ -30,23 +30,43 @@ var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
 
   app.controller('ibeisCtrl', function($scope, $http) 
   {
+      /*
   	var request =
-  	{   
-  		url: "http://131.193.42.62:5005/api/image/3",
-        method: "GET",  
-    }
+  	{
+  		url: "http://131.193.42.62:5005/api/image/",
+        method: "GET"
+    };
 
-    $.ajax(request).success(function(result) 
+    $.ajax(request).success(function(result)
     {
-    	//alert(result);
-  		$scope.imageIBEIS = result[0].response;
+        alert(result);
+  		$scope.imageIBEIS = result;
+        alert('the result is a ' + typeof $scope.imageIBEIS);
+        alert($scope.imageIBEIS);
     });
+     */
+    var imageNum = [];
+      var request =
+      {
+          url: "http://131.193.42.62:5005/api/image/" + 2,
+          dataType: 'jsonp',
+          method: "GET"
+      };
+      $.ajax(request).success(function(result)
+      {
+        //  var data = JSON.stringify(result);
+          imageNum.push(result.response);
+          //alert(imageNum[0]);
+          $('#image').html('<img src="'+imageNum[0]+'">')
+      });
+
+
+
 
     $scope.openInfo = function()
     {
     	var image = new Image();
-     	var image = new Image();
-        image.onload = function() 
+     	image.onload = function()
         {
         	EXIF.getData(image, function() 
         	{
@@ -54,7 +74,7 @@ var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
             });
         };
         image.src = document.getElementById("$index").src;
-    }
+    };
    
   	$scope.inputInfo = function()
   	{
@@ -65,7 +85,7 @@ var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
   				alert(EXIF.pretty(this));
         	});
     	}
-	}
+	};
 
 	$scope.Imgfunc = function()
 	{
