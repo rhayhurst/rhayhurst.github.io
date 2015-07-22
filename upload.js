@@ -118,7 +118,7 @@
                 document.getElementById('zipinput').click()
             }, false);
 
-            /* main upload function that sends images to imgur.com */
+            /* main upload function that sends images to ibeis.com */
             function upload(file) {
 
                 document.body.className = "uploading";
@@ -130,7 +130,7 @@
                 var xhr = new XMLHttpRequest();
                 var output = document.getElementById("output");
                 
-                xhr.open("POST", "http://131.193.42.62:5006/api/image/");
+                xhr.open("POST", "http://131.193.42.62:5005/api/image/");
                 xhr.setRequestHeader("Authorization","IBEIS:N37Z3rzJY53IjcuHHNZQK9KqqXs=");
                 // xhr.setRequestHeader("Secret","CB73808F-A6F6-094B-5FCD-385EBAFF8FC0");
                 // xhr.setRequestHeader("Username","ibeis");

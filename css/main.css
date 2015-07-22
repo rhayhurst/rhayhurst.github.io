@@ -57,3 +57,44 @@
     overflow: hidden;
     display: block;
 }
+input[type="file"] {
+    display:block;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.btn-lg {
+  padding: 10px 0px !important;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  margin: 10px -20px;
+  width: 100%;
+  text-align: center;
+
+}
+#drag { border: 10px solid black; text-align: center; padding:20px; width: 500px; margin: auto; font-size: 40px; display: inline-block;}
+            #einput {width:400px;}
+            #output {margin:20px;}
+
+            #filesinput, #directoryinput, #zipinput {
+                visibility: collapse;
+                width: 0px;
+            }
+            #output img{
+                border: 5px solid #333;
+                margin-right: 2px;
+            }
