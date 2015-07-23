@@ -6,61 +6,58 @@
  * @name app
  * @type {angular.Module}
  */
-var app = angular.module('app', ['flow']).config(['flowFactoryProvider',
-  function (flowFactoryProvider)
+var app = angular.module('app', ['flow']);
+
+app.factory('photosFactory', function($http) {
+ return{
+    getPhotos : function(id) {
+        return $http({
+            url: 'http://131.193.42.62:5005/api/image/'+id,
+            dataType:'jsonp',
+            method: 'GET'
+        })
+    },
+    getPath :function() {
+        return $http({
+            url: 'http://131.193.42.62:5005/api/image/',
+            dataType:'jsonp',
+            method: 'GET'
+        })
+    }
+ }
+});
+  app.controller('ibeisCtrl', function($scope, $http,photosFactory) 
   {
-    flowFactoryProvider.defaults =
-    {
-      target: '',
-      permanentErrors: [500, 501],
-      maxChunkRetries: 1,
-      chunkRetryInterval: 5000,
-      simultaneousUploads: 1
-    };
-
-    flowFactoryProvider.on('catchAll', function (event)
-    {
-      console.log('catchAll', arguments);
-    });
-
-    // Can be used with different implementations of Flow.js
-    flowFactoryProvider.factory = fustyFlowFactory;
-
-  }]);
-
-  app.controller('ibeisCtrl', function($scope, $http) 
-  {
-      /*
-  	var request =
-  	{
-  		url: "http://131.193.42.62:5005/api/image/",
-        method: "GET"
-    };
-
-    $.ajax(request).success(function(result)
-    {
-        alert(result);
-  		$scope.imageIBEIS = result;
-        alert('the result is a ' + typeof $scope.imageIBEIS);
-        alert($scope.imageIBEIS);
-    });
-     */
-    var imageNum = [];
-      var request =
+     
+      photosFactory.getPath().success(function(data){
+          $scope.arrImages=data.response;
+        });
+      
+      $scope.imageStuff = function () 
       {
-          url: "http://131.193.42.62:5005/api/image/" + 2,
-          dataType: 'jsonp',
-          method: "GET"
-      };
-      $.ajax(request).success(function(result)
-      {
-        //  var data = JSON.stringify(result);
-          imageNum.push(result.response);
-          //alert(imageNum[0]);
-          $('#image').html('<img src="'+imageNum[0]+'">')
-      });
+        $scope.imgs =[];
+        
+       angular.forEach($scope.arrImages, function (items) {
+            photosFactory.getPhotos(items).success(function(data){
+               $scope.imgs.push(data.response);
+             });
+         });
+     }
 
+      // var requestIamge = {
+      //     url: "http://131.193.42.62:5005/api/image/" + 2,
+      //     dataType: 'jsonp',
+      //     method: "GET" };
 
+      // $.ajax(requestIamge).success(function(result)
+      // {
+       
+      //     $scope.imageNum.push(result.response);
+         
+      //     // $('#image').html('<img style="width:200px;height:150px;" src="'+$scope.imageNum[0]+'">')
+      // });
+
+    
 
 
     $scope.openInfo = function()

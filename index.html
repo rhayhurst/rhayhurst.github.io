@@ -19,19 +19,19 @@
 </head>
 
 
-<body>
+<body ng-controller="ibeisCtrl">
 <!-- The file upload form used as target for the file upload widget -->
   <div class="col-xs-12 col-sm-3">          
     <form id="fileupload" style="border-right: 2px solid #333">
       <!-- Redirect browsers with JavaScript disabled to the origin page -->
        <a href="index.html"><img class ="logo" src="img/logo_site.png"></a><br/>
             <!-- The fileinput-button span is used to style the file input field as button -->
-              <span class="btn btn-lg btn-default fileUpload import">
+              <span class="btn btn-lg btn-default" ng-click="imageStuff()">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>
                           IMPORT IMAGES
                     </span>
-                    <input type="file" name="files[]" class="upload">
+                    <!-- <input type="file" name="files[]" class="upload" > -->
               </span>
               <button type="submit" class="btn btn-lg btn-primary  start">
                     <i class="glyphicon glyphicon-upload"></i>
@@ -68,7 +68,10 @@
                     </span>
               </button>
               </form></div>
-  <div class="col-xs-12 col-sm-9" style="border:1px solid #000;">Here is where the content should be nothing will appear yet
+  <div class="col-xs-12 col-sm-9" >
+   <ul ng-repeat ="items in imgs">
+       <li><img class="img-thumbnail col-sm-2" style="width:200px;height:170px;padding: 2px 2px; margin:13px 13px;" ng-src="{{items}}"></li>
+   </ul>
       <!-- <div flow-init 
            flow-files-submitted="$flow.upload()"
            flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"   >
