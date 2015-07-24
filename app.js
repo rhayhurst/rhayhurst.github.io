@@ -24,11 +24,10 @@ app.factory('photosFactory', function($http) {
             method: 'GET'
         })
     },
-     getLon : function(id)
+     getLon : function(idList)
      {
-        return $http
-        ({
-            url: 'http://131.193.42.62:5005/api/image/lon/' +id,
+        return $http({
+            url: 'http://131.193.42.62:5005/api/annot/image_gps/?aid_list=['+idList+']',
             dataType:'jsonp',
             method: 'GET'
         })
@@ -40,6 +39,7 @@ app.factory('photosFactory', function($http) {
      
       photosFactory.getPath().success(function(data){
           $scope.arrImages=data.response;
+
         });
       
       $scope.imageStuff = function () 
@@ -51,12 +51,22 @@ app.factory('photosFactory', function($http) {
                $scope.imgs.push(data.response);
              });
          });
-
-          photosFactory.getLon($scope.arrImages).success(function(data)
-          {
-              $scope.imgs.push(data.response);
-          });
+        $scope.stuffStuff();
      }
+
+     $scope.stuffStuff = function () {
+    
+      var arr =[];
+       angular.forEach($scope.arrImages, function (items) {
+            arr.push(items);
+         });
+
+       photosFactory.getLon(arr).success(function(data){
+            alert(data.response)   
+      });
+     }
+
+     
 
       // var requestIamge = {
       //     url: "http://131.193.42.62:5005/api/image/" + 2,
