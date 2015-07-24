@@ -65,8 +65,13 @@ app.factory('photosFactory', function($http) {
             alert(data.response)   
       });
      }
+    
 
+   
      
+    $scope.hideStuff = function(items){
+      $('#'+items+'').toggle('slow');
+    }
 
       // var requestIamge = {
       //     url: "http://131.193.42.62:5005/api/image/" + 2,
