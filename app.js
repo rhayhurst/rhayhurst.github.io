@@ -23,7 +23,16 @@ app.factory('photosFactory', function($http) {
             dataType:'jsonp',
             method: 'GET'
         })
-    }
+    },
+     getLon : function(id)
+     {
+        return $http
+        ({
+            url: 'http://131.193.42.62:5005/api/image/lon/' +id,
+            dataType:'jsonp',
+            method: 'GET'
+        })
+     }
  }
 });
   app.controller('ibeisCtrl', function($scope, $http,photosFactory) 
@@ -42,6 +51,14 @@ app.factory('photosFactory', function($http) {
                $scope.imgs.push(data.response);
              });
          });
+
+       angular.forEach($scope.arrImages, function(items)
+       {
+           photosFactory.getLon(items).success(function(data)
+           {
+               $scope.imgs.push(data.response);
+           });
+       });
      }
 
       // var requestIamge = {
