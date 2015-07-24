@@ -52,13 +52,10 @@ app.factory('photosFactory', function($http) {
              });
          });
 
-       angular.forEach($scope.arrImages, function(items)
-       {
-           photosFactory.getLon(items).success(function(data)
-           {
-               $scope.imgs.push(data.response);
-           });
-       });
+          photosFactory.getLon($scope.arrImages).success(function(data)
+          {
+              $scope.imgs.push(data.response);
+          });
      }
 
       // var requestIamge = {
