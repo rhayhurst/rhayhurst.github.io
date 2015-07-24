@@ -92,7 +92,26 @@ ul {
     margin:0;
 }
 .btn {
- padding: 7px 18px !important;
+ padding: 7px 13px !important;
  margin-bottom: 10px;
  font-size: 13px;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1000;
+  display: none;
+  float: right;
+  min-width: 94px;
+  padding: 7px 0;
+  margin: 35px 0 0;
+  font-size: 14px;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+  
+}
+ul.dropdown-menu  li:hover {
+ background-color:#45a3f3;
 }

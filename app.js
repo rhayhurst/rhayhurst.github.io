@@ -44,7 +44,9 @@ app.factory('photosFactory', function($http) {
       
       $scope.imageStuff = function () 
       {
-         $('#map').hide();
+          $scope.removeImages = false;
+          $('#map').hide();
+         
         $scope.imgs =[];
         
        angular.forEach($scope.arrImages, function (items) {
@@ -52,42 +54,41 @@ app.factory('photosFactory', function($http) {
                $scope.imgs.push(data.response);
              });
          });
-        $scope.stuffStuff();
      }
 
-     $scope.stuffStuff = function () {
-    
-      var arr =[];
-       angular.forEach($scope.arrImages, function (items) {
-            arr.push(items);
-         });
+      $scope.stuffStuff = function () {
 
-       photosFactory.getLon(arr).success(function(data){
-            alert(data.response)   
-            
-      });
-     }
+          var arr = [];
+          var location = [];
+          angular.forEach($scope.arrImages, function (items) {
+              arr.push(items);
+          });
+
+          photosFactory.getLon(arr).success(function (data) {
+              //alert(data.response)   
+              angular.forEach(data.response, function (items) {
+                  if ((items[0] && items[1]) != -1) {
+                      location.push([items[0], items[1]])
+                  }
+              })
+              $scope.createMap(location);
+          });
+      }
+      $scope.detailStuff = function () {
+
+      }
      
     $scope.hideStuff = function(items){
       $('#'+items+'').toggle('slow');
     }
 
-    $scope.createMap = function (){
-      $('#pictures').hide();
+    $scope.createMap = function (locations) {
+        $scope.removeImages = true;
       $('#map').show();
-
-
-       var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
-    ];
-
+      
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
-      center: new google.maps.LatLng(-33.92, 151.25),
+      center: new google.maps.LatLng(locations[0][0], locations[0][1]),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -97,7 +98,7 @@ app.factory('photosFactory', function($http) {
 
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
         map: map
       });
 

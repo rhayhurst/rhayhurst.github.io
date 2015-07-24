@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="app.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/exif.js"></script>
   <script type="text/javascript" src="zip.js"></script>
 </head>
@@ -22,59 +23,73 @@
 
 <body ng-controller="ibeisCtrl">
 <!-- The file upload form used as target for the file upload widget -->
-  <div class="col-xs-12 col-sm-3">          
-    <form id="fileupload" style="border-right: 2px solid #333">
-      <!-- Redirect browsers with JavaScript disabled to the origin page -->
-       <a href="index.html"><img class ="logo" src="img/logo_site.png"></a><br/>
+    <div class="col-xs-12 col-sm-3 col-lg-3">
+        <form id="fileupload" style="border-right: 2px solid #333">
+            <!-- Redirect browsers with JavaScript disabled to the origin page -->
+            <a href="index.html"><img class="logo" src="img/logo_site.png"></a><br />
             <!-- The fileinput-button span is used to style the file input field as button -->
-              <span class="btn btn-lg btn-default" ng-click="imageStuff()">
-                    <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>
-                          IMPORT IMAGES
-                    </span>
-                    <!-- <input type="file" name="files[]" class="upload" > -->
-              </span>
-              <button type="submit" class="btn btn-lg btn-primary  start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>
-                          UPLOAD
-                    </span>
-              </button>
-              <button type="reset" class="btn btn-lg btn-warning  cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>
-                          CANCEL UPLOAD
-                    </span>
-              </button>
-              <span class ="select">
-                    <b>
-                          DETECT ANIMALS
-                    </b>
-              </span>
-              <select type="reset" class="btn btn-lg btn-default select" disabled>
-                    <option class ="select">
-                          ZEBRA
-                    </option>
-                    <option class ="select">
-                          ELEPHANT 
-                    </option>
-                    <option class ="select">
-                          GIGO
-                    </option>
-              </select>
-              <button type="reset" class="btn btn-lg btn-clear detect">
-                    <i class="glyphicon glyphicon-check"></i>
-                    <span>
-                          DETECT 
-                    </span>
-              </button>
-              </form></div>
-  <div class="col-xs-12 col-sm-9" >
-    <button style="style="padding: 6px 10px !important;position: absolute;left: 93%;top: -40px;"" class="btn btn-sm btn-primary" ng-click="createMap()">Zebra Locations</button>
+            <span class="btn btn-lg btn-default" ng-click="imageStuff()">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>
+                    IMPORT IMAGES
+                </span>
+                <!-- <input type="file" name="files[]" class="upload" > -->
+            </span>
+            <button type="submit" class="btn btn-lg btn-primary  start">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>
+                    UPLOAD
+                </span>
+            </button>
+            <button type="reset" class="btn btn-lg btn-warning  cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>
+                    CANCEL UPLOAD
+                </span>
+            </button>
+            <span class="select">
+                <b>
+                    DETECT ANIMALS
+                </b>
+            </span>
+            <select type="reset" class="btn btn-lg btn-default select" disabled>
+                <option class="select">
+                    ZEBRA
+                </option>
+                <option class="select">
+                    ELEPHANT
+                </option>
+                <option class="select">
+                    TIGER
+                </option>
+            </select>
+            <button type="reset" class="btn btn-lg btn-clear detect" disabled>
+                <i class="glyphicon glyphicon-check"></i>
+                <span>
+                    DETECT
+                </span>
+            </button>
+        </form>
+    </div>
+  <div class="col-xs-12 col-sm-9 col-lg-8" >
+      <!--<button style="position: absolute;top: -8%;left: 100%;" class="btn btn-sm btn-primary" ng-click="stuffStuff()">
+          Zebra Locations
+      </button>-->
+      <div class="dropdown">
+          <button style="position: absolute;top: -8%;left: 100%;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              View List
+              <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li ng-click="stuffStuff()">Map</li>
+              <li ng-click="imageStuff()">Grid</li>
+              <li ng-click="">Detail</li>
+          </ul>
+      </div>
    <ul ng-repeat ="items in imgs" ng-hide="removeImages">
        <li id="{{$index}}">
-          <div class="col-sm-3">
-            <img class="img-thumbnail col-sm-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
+          <div class="col-sm-3 col-lg-2" id="detail-image">
+              <img class="img-thumbnail col-sm-3 col-lg-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
             <button href="#" class="btn btn-warning" role="button" ng-click="hideStuff($index)">
                CANCLE
             </button> 
