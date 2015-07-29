@@ -115,3 +115,6 @@ ul {
 ul.dropdown-menu  li:hover {
  background-color:#45a3f3;
 }
+.btn-danger{
+ padding: 7px 68px !important;
+}   

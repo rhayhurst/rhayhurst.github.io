@@ -1,4 +1,5 @@
 //File, Directory, Archive, or External Image Uploader using Imgur API, HTML5 FormData, ZIPjs, and Cross-Domain XHR
+var arrId;
 
             /* Traverse through files and directories */
             function traverseFileTree(item, path) {
@@ -64,18 +65,23 @@
             var files = document.getElementById("filesinput");
             var directory = document.getElementById("directoryinput");
             var zipinput = document.getElementById("zipinput");
-            var external = document.getElementById("external");
-            var fbutton = document.getElementById("fbutton");
-            var dbutton = document.getElementById("dbutton");
-            var zbutton = document.getElementById("zbutton");
+            //var external = document.getElementById("external");
+            //var fbutton = document.getElementById("fbutton");
+            //var dbutton = document.getElementById("dbutton");
+            //var zbutton = document.getElementById("zbutton");
 
-            //process files
+
+            var storeFile = [];
+           //process files
+
             files.addEventListener("change", function (e) {
                 var files = e.target.files;
                 for(i=0; i<files.length; i++) {
                     var file = files[i];
-                    if(file.type.match(/image.*/)){
-                        upload(file);
+                    if (file.type.match(/image.*/)) {
+
+                        storeFile.push(file);
+                        //upload(file);
                     }
                 }
             }, false);
@@ -85,38 +91,41 @@
                 var files = e.target.files;
                 for (var i=0; i<files.length; i++) {
                     var file = files[i];
-                    if(file.type.match(/image.*/)){
-                        upload(file);
+                    if (file.type.match(/image.*/)) {
+                        storeFile.push(file);
+                        //upload(file);
                     }
                 }            
             }, false);
-
+              
+            var zipStore = [];
             //process zip archive
-            zipinput.addEventListener('change', function() {
-                unzip(zipinput.files[0]);
+            zipinput.addEventListener('change', function () {
+                zipStore.push(zipinput.files[0]);
+                //unzip(zipinput.files[0]);
             }, false);
 
 
-            external.addEventListener("click", function (e) {
-                var einput = document.getElementById("einput");
-                var file = einput.value;
-                //matching for ending here is not ideal since lots of image are auto generated via some other url
-                //if (file.match(/\.jpg|\.gif|\.jpeg|\.png/)){
-                    upload(file);
-                //}
-            }, false);
+            //external.addEventListener("click", function (e) {
+            //    var einput = document.getElementById("einput");
+            //    var file = einput.value;
+            //    //matching for ending here is not ideal since lots of image are auto generated via some other url
+            //    //if (file.match(/\.jpg|\.gif|\.jpeg|\.png/)){
+            //        upload(file);
+            //    //}
+            //}, false);
 
-            fbutton.addEventListener("click", function() {
-                document.getElementById('filesinput').click();
-            }, false);
+            //fbutton.addEventListener("click", function() {
+            //    document.getElementById('filesinput').click();
+            //}, false);
 
-            dbutton.addEventListener("click", function() {
-                document.getElementById('directoryinput').click()
-            }, false);
+            ////dbutton.addEventListener("click", function() {
+            ////    document.getElementById('directoryinput').click()
+            ////}, false);
 
-            zbutton.addEventListener("click", function() {
-                document.getElementById('zipinput').click()
-            }, false);
+            //zbutton.addEventListener("click", function() {
+            //    document.getElementById('zipinput').click()
+            //}, false);
 
             /* main upload function that sends images to ibeis.com */
             function upload(file) {
@@ -136,7 +145,7 @@
                 // xhr.setRequestHeader("Username","ibeis");
                 // xhr.setRequestHeader("Password","ibeis");
                 // xhr.setRequestHeader("crossDomain",true);
-                // xhr.setRequestHeader("dataType",'jsonp');
+                 xhr.setRequestHeader("dataType",'jsonp');
 
                 xhr.onload = function() {
 
@@ -144,19 +153,23 @@
                        document.getElementById("error").innerHTML = JSON.parse(xhr.responseText).error.message;
                     } else {
 
-                        alert(xhr.responseText);
-                        // var links = JSON.parse(xhr.responseText).upload.links;
-                        // var dimage = links.small_square;
-                        // var dlink = links.imgur_page;
+                        var $textAndPic = $('<div>');
+                        $textAndPic.append('<img class="img-responsive" style="width:30%;" src="img/logo_site.png" alt="sany-logo" /> <div>');
+                        var success = $('<div style="height:120px; padding-top:50px; text-align:center;">Your Image <span style="text-decoration: underline; color:#0094ff;" >' +file.name+ '</span> have been successfully uploaded</div>');
+                        BootstrapDialog.show({
+                            title: $textAndPic,
+                            message: success,
+                            buttons: [{
+                                label: 'Close',
+                                cssClass: 'btn-primary',
+                                hotkey: 13, // Enter.
+                                action: function (dialog) {
 
-                        // var a = document.createElement("a");
-                        // a.href = dlink;
+                                    dialog.close();
+                                }
+                            }]
+                        });
 
-                        // var img = document.createElement("img");
-                        // img.src = dimage;
-
-                        // a.appendChild(img);
-                        // output.appendChild(a);
 
                         document.body.className = "uploaded";
                     }
