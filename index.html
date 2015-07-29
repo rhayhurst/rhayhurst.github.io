@@ -48,6 +48,8 @@
                     CANCEL 
                 </span>
             </button>
+
+
             <!--<span class="select">
                 <b>
                     DETECT ANIMALS
@@ -70,69 +72,90 @@
                     DETECT
                 </span>
             </button>-->
+
+
         </form>
     </div>
-  <div class="col-xs-12 col-sm-9 col-lg-8" >
-      <!--<button style="position: absolute;top: -8%;left: 100%;" class="btn btn-sm btn-primary" ng-click="stuffStuff()">
-          Zebra Locations
-      </button>-->
-      <div class="dropdown">
-          <button style="position: absolute;top: -8%;left: 100%;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              View List
-              <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li ng-click="stuffStuff()">Map</li>
-              <li ng-click="imageStuff()">Grid</li>
-              <li ng-click="">Detail</li>
-          </ul>
-      </div>
-   <ul ng-repeat ="items in imgs" ng-hide="removeImages">
-       <li id="{{$index}}">
-          <div class="col-sm-3 col-lg-3" id="detail-image">
-              <img class="img-thumbnail col-sm-3 col-lg-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
-            <button href="#" class="btn btn-warning" role="button" ng-click="hideStuff($index)">
-               CANCEL
-            </button> 
-            <button href="#" class="btn btn-primary" role="button">
-               UPLOAD
+    <div class="col-xs-12 col-sm-9 col-lg-8" >
+        <!--<button style="position: absolute;top: -8%;left: 100%;" class="btn btn-sm btn-primary"
+                  ng-click="stuffStuff()">
+            Zebra Locations
+        </button>-->
+        <div class="dropdown">
+            <button style="position: absolute;top: -8%;left: 100%;"
+                    class="btn btn-sm btn-primary dropdown-toggle"
+                    type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                View List
+                <span class="caret"></span>
             </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li ng-click="stuffStuff()">Map</li>
+                <li ng-click="imageStuff()">Grid</li>
+                <li ng-click="">Detail</li>
+            </ul>
+        </div>
+        <ul ng-repeat ="items in imgs" ng-hide="removeImages">
+            <li id="{{$index}}">
+                <div class="col-sm-3 col-lg-3" id="detail-image">
+                    <img class="img-thumbnail col-sm-3 col-lg-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
+                    <button href="#" class="btn btn-warning" role="button" ng-click="hideStuff($index)">
+                        CANCEL
+                    </button>
+                    <button href="#" class="btn btn-primary" role="button">
+                        UPLOAD
+                    </button>
+                </div>
+            </li>
+        </ul>
+
+        <div id ="map_content"style="display:none;">
+            <div id="map" style="width: 100%; height: 465px;"></div>
+        </div>
+        <div id="image_content" style="display:none;">
+            <div flow-init flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                <div id="drag" flow-drop ng-class="dropClass">
+                    <input class="btn btn-default" flow-btn id="filesinput" type="file">
+                        Upload Image
+                    <input class="btn btn-default" flow-btn type="file" id="directoryinput" multiple webkitdirectory>
+                    <input class="btn btn-default" flow-btn type="file" accept="application/zip" id="zipinput" flow-directory ng-show="$flow.supportDirectory">Upload Zip of Images
+                    <b>OR</b>
+                    Drag And Drop your images here
+                </div>
+                <br />
+                <!-- start the container for the table here -->
+                <div class="container">
+                    <table class="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div ng-repeat="file in $flow.files" class="gallery-box">
+                                        <div class="thumbnail" ng-show="$flow.files.length">
+                                            <img flow-img="file" />
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-xs btn-danger" ng-click="file.cancel()" >
+                                              Remove
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div> class="clear"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-       </li>
-   </ul>
- <div id ="map_content"style="display:none;">
-      <div id="map" style="width: 100%; height: 465px;"></div>
- </div>
-      <div id="image_content" style="display:none;">
-          <div flow-init
-               flow-files-submitted="$flow.upload()"
-               flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
-              <div id="drag" flow-drop ng-class="dropClass">
-                  <input class="btn btn-default" flow-btn id="filesinput" type="file">Upload Image
-                  <input class="btn btn-default" flow-btn type="file" id="directoryinput" multiple webkitdirectory>
-                  <input class="btn btn-default" flow-btn type="file" accept="application/zip" id="zipinput" flow-directory ng-show="$flow.supportDirectory">Upload Zip of Images
-                  <b>OR</b>
-                  Drag And Drop your images here
-              </div>
-              <br />
-              <div>
-                  <div ng-repeat="file in $flow.files" class="gallery-box">
-                      <div class="thumbnail" ng-show="$flow.files.length">
-                          <img flow-img="file" />
-                      </div>
-                      <div class="btn-group">
-                          <a class="btn btn-xs btn-danger" ng-click="file.cancel()" >
-                              Remove
-                          </a>
-                      </div>
-                  </div>
-                  <div class="clear"></div>
-              </div>
-          </div>
-          <script type="text/javascript" src="upload.js"></script>
-      </div>
-    
-       <!--<div flow-init 
+            <script type="text/javascript" src="upload.js"></script>
+        </div>
+
+       <!--<div flow-init
            flow-files-submitted="$flow.upload()"
            flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"   >
         <div  class="drop" flow-drop ng-class="dropClass">
@@ -178,12 +201,7 @@
             </div>
           </div>
           <div class="clear"></div>
-        </div>
-      </div>--> 
-   
- 
-
-        
-
-</body> 
+        </div>-->
+    </div>
+</body>
 </html>
