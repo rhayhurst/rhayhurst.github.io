@@ -275,23 +275,26 @@ app.factory('photosFactory', function($http) {
          });
       }
       $scope.modalPopup = function () {
-          var success = $compile('<div style="height:120px; padding-top:50px; text-align:center;"> <div flow-init flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"> <div class="drop" flow-drop ng-class="dropClass"><span class="btn btn-default" flow-btn>Upload Image</span><span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder of Images</span><b>OR</b> Drag And Drop your images here </div><br />')($scope);
-      
+          //$('#image_content').prepend( $compile('<div flow-init flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"><div class="drop" flow-drop ng-class="dropClass"> <span class="btn btn-default" flow-btn>Upload Image</span> <span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder of Images</span> <b>OR</b> Drag And Drop your images here</div><br />')($scope));
+          //$('#image_content').append($compile('<div><div ng-repeat="file in $flow.files" class="gallery-box"><span class="title">{{file.name}}</span><div class="thumbnail" ng-show="$flow.files.length"><img flow-img="file" /></div><div class="progress progress-striped" ng-class="{active: file.isUploading()}"><div class="progress-bar" role="progressbar"aria-valuenow="{{file.progress() * 100}}"aria-valuemin="0"aria-valuemax="100"ng-style="{width: (file.progress() * 100) + "%"}"> </div></div><div class="btn-group"> <a class="btn btn-xs btn-danger" ng-click="file.cancel()">Remove</a></div></div><div class="clear"></div></div>')($scope));
+          $scope.removeImages = true;
+          $("#image_content").show();
           var $textAndPic = $('<div>');
           $textAndPic.append('<img class="img-responsive" style="width:30%;" src="img/logo_site.png" alt="sany-logo" /> <div>');
-
-          BootstrapDialog.show({
-              title: $textAndPic,
-              message: success,
-              buttons: [{
-                  label: 'Close',
-                  cssClass: 'btn-primary',
-                  hotkey: 13, // Enter.
-                  action: function (dialog) {
-                      dialog.close();
-                  }
-              }]
-          });
+         
+          //BootstrapDialog.show({
+          //    title: $textAndPic,
+          //    message: message,
+          //    buttons: [{
+          //        label: 'Close',
+          //        cssClass: 'btn-primary',
+          //        hotkey: 13, // Enter.
+          //        action: function (dialog) {
+                     
+          //            dialog.close();
+          //        }
+          //    }]
+          //});
 
       }
 
