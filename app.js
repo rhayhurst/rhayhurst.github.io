@@ -6,7 +6,21 @@
  * @name app
  * @type {angular.Module}
  */
-var app = angular.module('app', ['flow']);
+var app = angular.module('app', ['flow'])
+    .config(['flowFactoryProvider', function (flowFactoryProvider) {
+    flowFactoryProvider.defaults = {
+        target: '',
+        permanentErrors: [500, 501],
+        maxChunkRetries: 1,
+        chunkRetryInterval: 5000,
+        simultaneousUploads: 1
+    };
+    flowFactoryProvider.on('catchAll', function (event) {
+        console.log('catchAll', arguments);
+    });
+    // Can be used with different implementations of Flow.js
+    flowFactoryProvider.factory = fustyFlowFactory;
+}]);
 
 
 
@@ -46,7 +60,7 @@ app.factory('photosFactory', function($http) {
      }
  }
 });
-  app.controller('ibeisCtrl', function($scope, $http,photosFactory) 
+  app.controller('ibeisCtrl', function($scope, $http,$compile ,photosFactory) 
   {
       var coord =
      [
@@ -84,7 +98,7 @@ app.factory('photosFactory', function($http) {
          ['02.978901', '  38.778901'],
 
          ['06.6314361', '40.029256'],
-         ['06.645678', '.001234'],
+         ['06.645678', '40.001234'],
          ['06.656789', '40.012345'],
          ['06.667890', '40.023456'],
          ['06.678901', '40.034567'],
@@ -250,7 +264,7 @@ app.factory('photosFactory', function($http) {
       $scope.imageStuff = function () 
       {
           $scope.removeImages = false;
-          $('#map').hide();
+          $('#map_content').hide();
          
         $scope.imgs =[];
         
@@ -259,7 +273,27 @@ app.factory('photosFactory', function($http) {
                $scope.imgs.push(data.response);
              });
          });
-     }
+      }
+      $scope.modalPopup = function () {
+          var success = $compile('<div style="height:120px; padding-top:50px; text-align:center;"> <div flow-init flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"> <div class="drop" flow-drop ng-class="dropClass"><span class="btn btn-default" flow-btn>Upload Image</span><span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folder of Images</span><b>OR</b> Drag And Drop your images here </div><br />')($scope);
+      
+          var $textAndPic = $('<div>');
+          $textAndPic.append('<img class="img-responsive" style="width:30%;" src="img/logo_site.png" alt="sany-logo" /> <div>');
+
+          BootstrapDialog.show({
+              title: $textAndPic,
+              message: success,
+              buttons: [{
+                  label: 'Close',
+                  cssClass: 'btn-primary',
+                  hotkey: 13, // Enter.
+                  action: function (dialog) {
+                      dialog.close();
+                  }
+              }]
+          });
+
+      }
 
       $scope.stuffStuff = function () {
 
@@ -293,7 +327,7 @@ app.factory('photosFactory', function($http) {
 
     $scope.createMap = function (locations) {
         $scope.removeImages = true;
-      $('#map').show();
+      $('#map_content').show();
       
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
