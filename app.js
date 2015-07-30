@@ -48,16 +48,28 @@ app.factory('photosFactory', function ($http) {
         },
         postLon: function (idList, coord) {
             return $http({
-                url: 'http://131.193.42.62:5005/api/image/gps/?gid_list=[' + idList + ':[' + coord + ']]',
-                //gid_list: (coord),
+                url: 'http://131.193.42.62:5005/api/image/gps/',
+                gid_list: (idList),
+                gps_list: (coord),
                 dataType: 'jsonp',
                 method: 'PUT'
             })
         }
     }
 });
+app.directive('cancelUploadfile', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element) {
+            element.bind('click', function (e) {
+                angular.element(e.target).siblings('#cancelAll').trigger('click');
+            });
+        }
+    };
+});
 app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.hideTable = true;
+    
     var coord =
    [
        ['04.813745', '38.824375'],
@@ -273,15 +285,15 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.ImportImages = function () {
 
         $scope.removeImages = true;
-        document.getElementById('submitImages').removeAttribute('disabled');
-        document.getElementById('cancel').removeAttribute('disabled');
         $('#map_content').hide();
         $("#drag").show();
         $scope.hideTable = true;
         $("#image_content").show();
+        $("#cancelAll").show();
       
     }
     $scope.tableStuff = function () {
+        $("#cancelAll").hide();
         $scope.hideTable = false;
         $scope.removeImages = true;
         $("#drag").hide();
@@ -295,7 +307,8 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         });
     }
     
-    $scope.stuffStuff = function () {
+    $scope.mapStuff = function () {
+        $("#cancelAll").hide();
         $scope.hideTable = true;
         var arr = [];
         var location = [];
@@ -306,11 +319,11 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
 
         angular.forEach($scope.arrImages, function (items) {
             arr.push(items);
-            //photosFactory.postLon(items,coord[items]).success(function (data) {
-            //    alert(data.response);
-            //});
+            
         });
-
+        //photosFactory.postLon(arr,coord).success(function (data) {
+        //    alert(data.response);
+        //});
         photosFactory.getLon(arr).success(function (data) {
             //alert(data.response)
             angular.forEach(data.response, function (items) {
@@ -340,14 +353,21 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.hideStuff = function (items) {
         $('#' + items + '').toggle('slow');
     }
+    $scope.cancelStuff = function () {
+        // $('#image_content').hide();
 
+        setTimeout(function () {
+            angular.element('#cancelAll').trigger('click');
+        }, 0);
+      
+    }
     $scope.createMap = function (locations) {
+        
         $scope.removeImages = true;
         $('#map_content').show();
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(locations[0][0], locations[0][1]),
+            zoom: 2,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -360,14 +380,20 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
                 position: new google.maps.LatLng(locations[i][0], locations[i][1]),
                 map: map
             });
-
             google.maps.event.addListener(marker, 'click', (function (marker, i) {
                 return function () {
-                    infowindow.setContent(locations[i][0]);
+                    infowindow.setContent("Hi There!");
                     infowindow.open(map, marker);
                 }
             })(marker, i));
         }
+        var latLng = marker.getPosition();
+        map.setCenter(latLng);
+       
+        google.maps.event.addListener(marker, 'click', function () {
+            map.setZoom(8);
+            map.setCenter(marker.getPosition());
+        });
     }
 
 

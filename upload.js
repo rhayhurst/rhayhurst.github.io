@@ -114,7 +114,11 @@ zipinput.addEventListener('change', function () {
     //unzip(zipinput.files[0]);
 }, false);
 
-
+$(document).ready(function () {
+    $('#submitImages').on('click', function (evt) {
+        $("#cancelAll").hide();
+    });
+});
 //external.addEventListener("click", function (e) {
 //    var einput = document.getElementById("einput");
 //    var file = einput.value;

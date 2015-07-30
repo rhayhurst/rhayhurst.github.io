@@ -44,7 +44,7 @@
                     SUBMIT IMAGES
                 </span>
             </button>
-            <button type="reset" class="btn btn-lg btn-warning" id="cancel">
+            <button type="reset" ng-click="cancelStuff()" id="cancel" disabled class="hidden">
                 <i class="glyphicon glyphicon-ban-circle"></i>
                 <span>
                     CANCEL
@@ -92,12 +92,12 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ng-click="stuffStuff()">Map</li>
+                <li ng-click="mapStuff()">Map</li>
                 <li ng-click="imageStuff()">Grid</li>
                 <li ng-click="tableStuff()">Detail</li>
             </ul>
         </div>
-        <ul ng-repeat="items in imgs" ng-hide="removeImages">
+        <ul ng-repeat="items in imgs" ng-hide="removeImages" >
             <li id="{{$index}}">
                 <div class="col-sm-3 col-lg-3" id="detail-image">
                     <img class="img-thumbnail col-sm-3 col-lg-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
@@ -117,8 +117,8 @@
                     <th>Lat Long</th>
                     <th>Additional Info</th>
                 </tr>
-                <tr ng-repeat="items in imgs" >
-                    <td style="text-align :left;vertical-align: middle;" ><b>{{$index}}</b></td>
+                <tr ng-repeat="items in imgs">
+                    <td style="text-align :left;vertical-align: middle;"><b>{{$index}}</b></td>
                     <td><img class="img-thumbnail" style="width: 125px;height: 100px;" ng-src="{{items}}"> </td>
                     <td style="text-align :left;vertical-align: middle;">Image Name</td>
                     <td style="text-align :left;vertical-align: middle;">date</td>
@@ -140,6 +140,7 @@
                     <b>OR</b>
                     Drag And Drop your images here
                 </div>
+                <div><a style="padding: 7px 34px !important;" class="btn btn-danger" id="cancelAll" ng-click="$flow.cancel()">CANCEL ALL</a></div>
                 <br />
                <div ng-repeat="file in $flow.files" class="gallery-box">
                     <div class="thumbnail" ng-show="$flow.files.length">
