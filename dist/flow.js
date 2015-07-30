@@ -560,6 +560,10 @@
           file.abort();
         }
       }
+      if (storeFile.length == 0) {
+          document.getElementById('submitImages').disabled = true;
+          document.getElementById('cancel').disabled = true;
+      }
     },
 
     /**
