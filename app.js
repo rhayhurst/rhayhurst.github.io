@@ -57,7 +57,7 @@ app.factory('photosFactory', function ($http) {
     }
 });
 app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
-
+    $scope.hideTable = true;
     var coord =
    [
        ['04.813745', '38.824375'],
