@@ -149,6 +149,7 @@ $(document).ready(function () {
 /* main upload function that sends images to ibeis.com */
 function upload(file) {
     var success ;
+    document.getElementById('submitImages').disabled = true;
     /* Lets build a FormData object*/
     if (file == null) {
         success = $('<div style="height:120px; padding-top:50px; text-align:center;"> Please upload your images</div>');
@@ -180,9 +181,13 @@ function upload(file) {
         xhr.setRequestHeader("dataType", 'jsonp');
         xhr.onload = function () {
 
-        
+        if (storeFile.length < 1 || zipStore.length < 1) {
+            success = $('<div style="height:120px; padding-top:50px; text-align:center;">No current image to upload..</div>');
+        }
+
             if (this.status == 400) {
                  success = $('<div style="height:120px; padding-top:50px; text-align:center;"> Sorry ! There is an error while we are uploading the image.</div>');
+
             } else {
 
                  success = $('<div style="height:120px; padding-top:50px; text-align:center;">Your Image <span style="text-decoration: underline; color:#0094ff;" >' + file.name + '</span> have been successfully uploaded</div>');
