@@ -80,7 +80,9 @@ var zipinput = document.getElementById("zipinput");
 
 files.addEventListener("change", function (e) {
     document.getElementById('submitImages').removeAttribute('disabled');
-    document.getElementById('cancel').removeAttribute('disabled');
+    //document.getElementById('cancel').removeAttribute('disabled');
+    $("#cancelAll").show();
+    $('#drag').hide();
     var files = e.target.files;
     for (i = 0; i < files.length; i++) {
         var file = files[i];
@@ -95,7 +97,9 @@ files.addEventListener("change", function (e) {
 //process directory
 directory.addEventListener("change", function (e) {
     document.getElementById('submitImages').removeAttribute('disabled');
-    document.getElementById('cancel').removeAttribute('disabled');
+    //document.getElementById('cancel').removeAttribute('disabled');
+    $("#cancelAll").show();
+    $('#drag').hide();
     var files = e.target.files;
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
@@ -109,7 +113,9 @@ directory.addEventListener("change", function (e) {
 //process zip archive
 zipinput.addEventListener('change', function () {
     document.getElementById('submitImages').removeAttribute('disabled');
-    document.getElementById('cancel').removeAttribute('disabled');
+    //document.getElementById('cancel').removeAttribute('disabled');
+    $("#cancelAll").show();
+    $('#drag').hide();
     zipStore.push(zipinput.files[0]);
     //unzip(zipinput.files[0]);
 }, false);

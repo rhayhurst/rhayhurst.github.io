@@ -27,7 +27,7 @@ app.factory('photosFactory', function ($http) {
     return {
         getPhotos: function (id) {
             return $http({
-                url: 'http://131.193.42.62:5005/api/image/' + id,
+                url: 'http://131.193.42.62:5005/api/annot/' + id,
                 dataType: 'jsonp',
                 method: 'GET'
             })
@@ -289,7 +289,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         $("#drag").show();
         $scope.hideTable = true;
         $("#image_content").show();
-        $("#cancelAll").show();
+        $("#cancelAll").hide();
       
     }
     $scope.tableStuff = function () {
@@ -337,6 +337,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.submitStuff = function () {
         $scope.hideTable = true;
         $scope.removeImages = true;
+        $("#cancelAll").show();
         $('#map_content').hide();
        
         for (var j = 0; j < storeFile.length; j++) {
@@ -391,7 +392,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         map.setCenter(latLng);
        
         google.maps.event.addListener(marker, 'click', function () {
-            map.setZoom(8);
+            map.setZoom(16);
             map.setCenter(marker.getPosition());
         });
     }
