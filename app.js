@@ -24,9 +24,7 @@ var app = angular.module('app', ['flow'])
     }]);
 
 app.factory('photosFactory', function ($http) {
-    
-   
-         
+
     return {
         getPhotos: function (id) {
             return $http({
@@ -120,13 +118,48 @@ app.directive('cancelUploadfile', function () {
 });
 app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.hideTable = true;
-    
 
+    $scope.turnOnSelectImages = function(){
+        $('#selectImage').prop('disabled',false);
+        $('#selectImage span').html('SELECT IMAGES');
+
+    }
     photosFactory.getPath().success(function (data) {
         $scope.arrImages = data.response;
 
     });
-   
+   $scope.selectAll = function(){
+
+           $('.checkbox').each(function() { //loop through each checkbox
+               this.checked = true;  //select all checkboxes with class "checkbox1"
+           });
+
+
+   }
+    $scope.deselectAll = function(){
+
+        $('.checkbox').each(function() { //loop through each checkbox
+            this.checked = false;  //select all checkboxes with class "checkbox1"
+        });
+
+
+    }
+    $scope.removeSelected = function(){
+
+        $('.checkbox').each(function(data) { //loop through each checkbox
+            if(this.checked == true)  {
+                var imgInstruction = $('.gallery-box img')[data];
+                var targetDisplay = $('.gallery-box')[data];
+                imgInstruction.src ='';
+                targetDisplay.innerHTML='';
+
+            }//select all checkboxes with class "checkbox1"
+
+        });
+
+
+
+    }
     $scope.imageStuff = function () {
         $scope.hideTable = true;
         $scope.removeImages = false;
@@ -143,6 +176,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
 
     }
     $scope.ImportImages = function () {
+        $('#selectImage span').html('DONE WITH SELECTION');
         $scope.removeImages = true;
         $('#map_content').hide();
         $("#drag").show();

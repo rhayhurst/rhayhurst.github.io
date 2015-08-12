@@ -7,7 +7,13 @@
     font-size: 14px;
     font-weight: bold;
 }
-
+.btn-primary[disabled],.btn-success[disabled]{
+    background-color: #A8ABAE;
+    border-color: rgba(76, 174, 76, 0);
+}
+#Time{
+    background-color: #009492;
+}
 .drop {
     padding: 15px;
     border: 2px #f1f1f1 dashed;
@@ -24,7 +30,24 @@
 .transfer-box .progress {
     margin-bottom: 0;
 }
+input[type=checkbox]{
+    float:right;
+    /* All browsers except webkit*/
+    transform: scale(1.2);
+    /* Webkit browsers*/
+    -webkit-transform: scale(1.2);
+}
+img {
+    border: 0;
+    padding: 0px 18px;
+}
+#selectAllImages{
+    display: -webkit-box;
 
+}
+#selectAllImages .btn-select{
+    width:200px !important;
+}
 .thumbnail {
     line-height: 20px;
     margin-bottom: 5px;
@@ -38,10 +61,9 @@
 
 .gallery-box {
     width: 200px;
-    padding: 5px;
-    margin: 7px;
+    margin: 8px 60px;
     float: left;
-    min-height: 200px;
+    min-height: 0px;
     border: 1px solid #ddd;
     overflow: hidden;
 }
