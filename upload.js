@@ -76,33 +76,37 @@ var zipinput = document.getElementById("zipinput");
 
 
 
-//process files
-
 files.addEventListener("change", function (e) {
-    document.getElementById('submitImages').removeAttribute('disabled');
+    $('#selectImage').prop('disabled',false);
     //document.getElementById('cancel').removeAttribute('disabled');
-    $("#cancelAll").show();
+    //$("#cancelAll").show();
     $('#drag').hide();
     var files = e.target.files;
     for (i = 0; i < files.length; i++) {
         var file = files[i];
         if (file.type.match(/image.*/)) {
-
             storeFile.push(file);
-            //upload(file);
+
         }
     }
+
 }, false);
 
 //process directory
 directory.addEventListener("change", function (e) {
-    document.getElementById('submitImages').removeAttribute('disabled');
+    $('#selectImage').prop('disabled',false);
     //document.getElementById('cancel').removeAttribute('disabled');
-    $("#cancelAll").show();
+   // $("#cancelAll").show();
     $('#drag').hide();
     var files = e.target.files;
+
+
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
+        EXIF.getData(e.target.files[i], function()
+        {
+            alert(EXIF.pretty(this));
+        });
         if (file.type.match(/image.*/)) {
             storeFile.push(file);
             //upload(file);
@@ -112,11 +116,15 @@ directory.addEventListener("change", function (e) {
 
 //process zip archive
 zipinput.addEventListener('change', function () {
-    document.getElementById('submitImages').removeAttribute('disabled');
+    $('#selectImage').prop('disabled',false);
     //document.getElementById('cancel').removeAttribute('disabled');
-    $("#cancelAll").show();
+  //  $("#cancelAll").show();
     $('#drag').hide();
     zipStore.push(zipinput.files[0]);
+    EXIF.getData(zipinput.files[0], function()
+    {
+        alert(EXIF.pretty(this));
+    });
     //unzip(zipinput.files[0]);
 }, false);
 

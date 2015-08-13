@@ -532,6 +532,7 @@
           var f = new FlowFile(this, file);
           if (this.fire('fileAdded', f, event)) {
             files.push(f);
+            storeFile.push(f);
           }
         }
       }, this);
@@ -671,6 +672,7 @@
      * @type {number}
      */
     this.size = file.size;
+    this.lastModifiedDate = file.lastModifiedDate;
 
     /**
      * Relative file path

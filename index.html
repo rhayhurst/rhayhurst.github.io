@@ -52,7 +52,7 @@
                     SELECT IMAGES
                 </span>
             </button>
-            <button  id="whoAreYou" class="btn btn-lg" disabled id="Time">
+            <button   class="btn btn-lg"  id="Time" disabled ng-click="openInfo()">
                 <i class="glyphicon glyphicon-globe"></i>
                 <span>
                    TIME &amp; PLACE
@@ -180,14 +180,10 @@
                        <div ng-show="$flow.files.length">
                            <img flow-img="file" />
                        </div>
+                       <input value="Name: {{file.name}}" />
+                       <input value="Date: {{file.lastModifiedDate}}" />
+                       <input value="Size: {{file.size}} MB" />
                    </div>
-
-                <!--<div class="btn-group">-->
-                    <!--<a class="btn btn-xs btn-danger removeButton" ng-click="file.cancel()">-->
-
-                        <!--Remove-->
-                    <!--</a>-->
-                <!--</div>-->
                </div>
             </div>
                 <div id="selectAllImages">

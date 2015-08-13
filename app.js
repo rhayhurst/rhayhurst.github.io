@@ -118,11 +118,12 @@ app.directive('cancelUploadfile', function () {
 });
 app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.hideTable = true;
-
+    $scope.count =0;
     $scope.turnOnSelectImages = function(){
         $('#selectImage').prop('disabled',false);
-        $('#selectImage span').html('SELECT IMAGES');
 
+        $('#selectImage span').html('SELECT IMAGES');
+        $('#drag').show();
     }
     photosFactory.getPath().success(function (data) {
         $scope.arrImages = data.response;
@@ -149,14 +150,11 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         $('.checkbox').each(function(data) { //loop through each checkbox
             if(this.checked == true)  {
                 var imgInstruction = $('.gallery-box img')[data];
-                var targetDisplay = $('.gallery-box')[data];
                 imgInstruction.src ='';
-                targetDisplay.innerHTML='';
-
+                $('.gallery-box:eq('+data+')').css('display','none');
             }//select all checkboxes with class "checkbox1"
 
         });
-
 
 
     }
@@ -177,6 +175,8 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     }
     $scope.ImportImages = function () {
         $('#selectImage span').html('DONE WITH SELECTION');
+        $('#selectImage').prop('disabled',true);
+        $scope.count +=1;
         $scope.removeImages = true;
         $('#map_content').hide();
         $("#drag").show();
@@ -184,7 +184,20 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         $("#image_content").show();
         $("#cancelAll").hide();
         $('#tableDisplay').hide();
+
+        if($scope.count %2==0)
+        {
+            $('#selectImage').prop('disabled',true);
+            $('#selectAllImages').hide();
+            $('#Time').prop('disabled',false);
+            $('#drag').hide();
+            $('.checkbox').each(function(data) { //loop through each checkbox
+               $('.checkbox:eq('+data+')').css('display','none');
+            });
+        }
+
     }
+
 
     $scope.getTableImage = function () {
         $('#tableDisplay').show();
@@ -299,24 +312,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     //     $scope.imageNum.push(result.response);
 
     //     // $('#image').html('<img style="width:200px;height:150px;" src="'+$scope.imageNum[0]+'">')
-    // });
-
-
-
-
-    //    $scope.openInfo = function()
-    //    {
-    //    	var image = new Image();
-    //     	image.onload = function()
-    //        {
-    //        	EXIF.getData(image, function() 
-    //        	{
-    //        		alert(EXIF.pretty(this));
-    //            });
-    //        };
-    //        image.src = document.getElementById("$index").src;
-    //    };
-
+    // }
     //  	$scope.inputInfo = function()
     //  	{
     //  		document.getElementById("file-input").onchange = function(e) 

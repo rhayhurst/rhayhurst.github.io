@@ -7,7 +7,7 @@
     font-size: 14px;
     font-weight: bold;
 }
-.btn-primary[disabled],.btn-success[disabled]{
+.btn-primary[disabled],.btn-success[disabled],#Time[disabled]{
     background-color: #A8ABAE;
     border-color: rgba(76, 174, 76, 0);
 }
@@ -39,7 +39,11 @@ input[type=checkbox]{
 }
 img {
     border: 0;
-    padding: 0px 18px;
+    padding: 0px 15px;
+    padding-bottom: 18px;
+    padding-top: 18px;
+    width: 200px;
+    height: 165px;
 }
 #selectAllImages{
     display: -webkit-box;
@@ -137,4 +141,10 @@ ul.dropdown-menu  li:hover {
 }
 .btn-danger{
  padding: 7px 68px !important;
-}   
+}
+.taget-image{
+    padding: 5px;
+}
+input{
+    width: 100%;
+}
