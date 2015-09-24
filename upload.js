@@ -105,7 +105,7 @@ directory.addEventListener("change", function (e) {
         var file = files[i];
         EXIF.getData(e.target.files[i], function()
         {
-            alert(EXIF.pretty(this));
+           // alert(EXIF.pretty(this));
         });
         if (file.type.match(/image.*/)) {
             storeFile.push(file);
@@ -123,7 +123,7 @@ zipinput.addEventListener('change', function () {
     zipStore.push(zipinput.files[0]);
     EXIF.getData(zipinput.files[0], function()
     {
-        alert(EXIF.pretty(this));
+       // alert(EXIF.pretty(this));
     });
     //unzip(zipinput.files[0]);
 }, false);

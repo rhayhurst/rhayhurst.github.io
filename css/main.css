@@ -30,7 +30,7 @@
 .transfer-box .progress {
     margin-bottom: 0;
 }
-input[type=checkbox]{
+input[type="checkbox"]{
     float:right;
     /* All browsers except webkit*/
     transform: scale(1.2);
@@ -47,10 +47,16 @@ img {
 }
 #selectAllImages{
     display: -webkit-box;
-
+    display: -moz-box;
+}
+.gallery-box input[type=checkbox]{
+    float: right;
 }
 #selectAllImages .btn-select{
     width:200px !important;
+}
+.leaflet-locpicker-map{
+   z-index: 99999 !important;
 }
 .thumbnail {
     line-height: 20px;
@@ -93,6 +99,9 @@ input[type="file"] {
     filter: alpha(opacity=0);
     visibility: visible;
     position: absolute;
+}
+input[type="text"] {
+    width: 100%;
 }
 .fileUpload {
     position: relative;
@@ -144,7 +153,4 @@ ul.dropdown-menu  li:hover {
 }
 .taget-image{
     padding: 5px;
-}
-input{
-    width: 100%;
 }

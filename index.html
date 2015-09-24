@@ -5,21 +5,29 @@
 <head>
     <title>Download url</title>
     <script src="js/angular.min.js"></script>
-    <script src="js/map.js"></script>
     <script src="dist/ng-flow-standalone.js"></script>
     <script src="dist/flow.js"></script>
     <script src="dist/fusty-flow.js"></script>
     <script src="dist/fusty-flow-factory.js"></script>
     <script src="dist/ng-flow.js"></script>
-    <script src="dist/jquery-2.1.4.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/jcarousel.basic.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/leaflet-locationpicker.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="app.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src=" js/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap-dialog.min.js"></script>
     <script type="text/javascript" src="js/exif.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script type="text/javascript" src="js/leaflet-locationpicker.js"></script>
+
     <script type="text/javascript" src="zip.js"></script>
     <style type="text/css">
         td {
@@ -29,11 +37,13 @@
             height: 117px;
         }
     </style>
+
 </head>
 
 
 <body ng-controller="ibeisCtrl">
     <!-- The file upload form used as target for the file upload widget -->
+
     <div class="col-xs-12 col-sm-3 col-lg-3">
         <form id="fileupload" style="border-right: 2px solid #333;height:1000px;">
             <!-- Redirect browsers with JavaScript disabled to the origin page -->
@@ -52,7 +62,7 @@
                     SELECT IMAGES
                 </span>
             </button>
-            <button   class="btn btn-lg"  id="Time" disabled ng-click="openInfo()">
+            <button   class="btn btn-lg"  id="Time" disabled data-toggle="modal" data-target="#myModal">
                 <i class="glyphicon glyphicon-globe"></i>
                 <span>
                    TIME &amp; PLACE
@@ -117,6 +127,7 @@
                 <!--<li ng-click="mapStuff()">Map</li>-->
             <!--</ul>-->
         <!--</div>-->
+
         <div id="gridDisplay">
             <ul ng-repeat="items in imgs" ng-hide="removeImages">
                 <li id="{{$index}}">
@@ -172,21 +183,26 @@
                 <div><a style="padding: 10px 35px !important; display: inline-block;margin-left: 15px;" class="btn btn-danger" id="cancelAll"
                         ng-click="$flow.cancel()">Remove All</a></div>
                 <br />
-                <div class="col-sm-12">
+                <div class="col-sm-12 col-lg-11">
 
-               <div ng-repeat="file in $flow.files" class="gallery-box">
-                   <div class="target-image">
-                       <input class="checkbox" type="checkbox"/>
-                       <div ng-show="$flow.files.length">
-                           <img flow-img="file" />
+                   <div ng-repeat="file in $flow.files" class="gallery-box">
+                       <div class="target-image">
+                           <input class="checkbox" type="checkbox"/>
+                           <div ng-show="$flow.files.length">
+                               <img flow-img="file" />
+                           </div>
+                           <input  placeholder="Name: {{file.name}}" type="text" name="{{file.name}}"/>
+                           <input  placeholder="Date: {{file.lastModifiedDate}}" type="text" name="date"/>
+                           <div>
+                               <input class="geoloc" type="text" placeholder="48.922499,-88.945313" val=""/>
+                           </div>
+
                        </div>
-                       <input value="Name: {{file.name}}" />
-                       <input value="Date: {{file.lastModifiedDate}}" />
-                       <input value="Size: {{file.size}} MB" />
                    </div>
-               </div>
+                    <script type="text/javascript"> $('#geoloc').leafletLocationPicker();</script>
             </div>
-                <div id="selectAllImages">
+
+                <div class="col-lg-1  pull-right" id="selectAllImages">
                     <button class="btn btn-primary btn-select" ng-click="selectAll()">Select All</button>
                     <button class="btn btn-danger btn-select"  ng-click="deselectAll()">Deselect All</button>
                     <button class="btn btn-warning btn-select" ng-click="removeSelected()">Remove Selected Images</button>
@@ -195,6 +211,31 @@
         </div>
             <script type="text/javascript" src="upload.js"></script>
      </div>
+    <div class="wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Location</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-6">
+                            <input id="getloc" type="text" val="" placeholder="pick your location"/>
+                        </div>
+                        <script type="text/javascript"> $('#getloc').leafletLocationPicker();</script>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ApplyLocation()">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -117,11 +117,37 @@ app.directive('cancelUploadfile', function () {
     };
 });
 app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
+
+    var arrGlob =[];
+    $(document).ready(function(){
+    $('.geoloc').leafletLocationPicker();
+
+    })
+    $scope.datetime = function(){
+            $('.datetime').datetimepicker();
+    }
+    $scope.Carousel =function() {
+        $('.wrapper').show();
+        var imgsLength = $('.gallery-box img').length;
+        for(var j=0; j<imgsLength; j++ ){
+            var k= $('.gallery-box img')[j].src;
+            arrGlob.push(k);
+        }
+
+        $('.jcarousel').jcarousel();
+        // Append items
+        for (var i = 0; i < arrGlob.length; i++){
+            var cc = $compile('<li><img ng-src="' + arrGlob[i] + '" alt="item 1"/></li>')($scope);
+            $('.jcarousel ul').append(cc);
+             }
+        // Reload carousel
+        $('.jcarousel').jcarousel('reload');
+    };
+
     $scope.hideTable = true;
     $scope.count =0;
     $scope.turnOnSelectImages = function(){
         $('#selectImage').prop('disabled',false);
-
         $('#selectImage span').html('SELECT IMAGES');
         $('#drag').show();
     }
@@ -171,6 +197,13 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
             });
         });
         return $scope.imgs;
+
+    }
+    $scope.ApplyLocation = function(){
+
+         var local = $('#getloc').val();
+
+        $('.geoloc').val(local);
 
     }
     $scope.ImportImages = function () {
