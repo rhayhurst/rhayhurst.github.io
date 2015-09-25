@@ -121,8 +121,12 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     var arrGlob =[];
     $(document).ready(function(){
     $('.geoloc').leafletLocationPicker();
-
+        $('.leaflet-control').click(function(e){
+            $('.leaflet-locpicker-map').hide();
+           // $('.location').hide();
+        });
     })
+
     $scope.datetime = function(){
             $('.datetime').datetimepicker();
     }
@@ -230,8 +234,24 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         }
 
     }
+  $scope.chooseLocation = function(){
+     $('.location').show();
+     console.log(this)
+     var id= this.$index;
+        if(!$('#'+id+'').is(":focus")){
+            $('.location').hide();
+            $('.location').hide();
+            $('.leaflet-locpicker-map').hide();
+        }
+
+     $('.getlocs').focus();
+
+      $('.getlocs').leafletLocationPicker( function(e) {
+            	$('#'+id+'').val( e.location );
+       });
 
 
+  }
     $scope.getTableImage = function () {
         $('#tableDisplay').show();
         $("#map_content").hide();

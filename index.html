@@ -130,7 +130,7 @@
 
         <div id="gridDisplay">
             <ul ng-repeat="items in imgs" ng-hide="removeImages">
-                <li id="{{$index}}">
+                <!--<li id="{{$index}}">-->
                     <div class="col-sm-3 col-lg-3" id="detail-image">
                         <img class="img-thumbnail col-sm-3 col-lg-3" style="width:180px;height:140px;padding:2px 2px; margin:3px 3px;" ng-src="{{items}}">
                         <!--<button href="#" class="btn btn-danger" role="button" ng-click="hideStuff($index)">-->
@@ -194,7 +194,7 @@
                            <input  placeholder="Name: {{file.name}}" type="text" name="{{file.name}}"/>
                            <input  placeholder="Date: {{file.lastModifiedDate}}" type="text" name="date"/>
                            <div>
-                               <input class="geoloc" type="text" placeholder="48.922499,-88.945313" val=""/>
+                               <input class="geoloc" id="{{$index}}" ng-click="chooseLocation()"type="text" placeholder="48.922499,-88.945313" val=""/>
                            </div>
 
                        </div>
@@ -208,6 +208,12 @@
                     <button class="btn btn-warning btn-select" ng-click="removeSelected()">Remove Selected Images</button>
                 </div>
         </div>
+        </div>
+        <div class="col-lg-2 col-sm-2 pull-right" style="position: absolute;right: 0;">
+            <div class="location col" style="display:none">
+                    <input class="getlocs" type="text" val="" placeholder="pick your location"/>
+                <script type="text/javascript"> $('.getlocs').leafletLocationPicker();</script>
+            </div>
         </div>
             <script type="text/javascript" src="upload.js"></script>
      </div>
