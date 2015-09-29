@@ -206,7 +206,6 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
     $scope.ApplyLocation = function(){
 
          var local = $('#getloc').val();
-
         $('.geoloc').val(local);
 
     }
@@ -225,6 +224,7 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
         if($scope.count %2==0)
         {
             $('#selectImage').prop('disabled',true);
+            $('input[type="text"]').css('pointer-events','all');
             $('#selectAllImages').hide();
             $('#Time').prop('disabled',false);
             $('#drag').hide();
@@ -240,7 +240,6 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
      var id= this.$index;
         if(!$('#'+id+'').is(":focus")){
             $('.location').hide();
-            $('.location').hide();
             $('.leaflet-locpicker-map').hide();
         }
 
@@ -252,6 +251,12 @@ app.controller('ibeisCtrl', function ($scope, $http, $compile, photosFactory) {
 
 
   }
+    $scope.chooseDate = function(){
+        $('.location').show();
+        console.log(this)
+        var id= this.$index;
+        $('#Date'+id+'').datetimepicker();
+    }
     $scope.getTableImage = function () {
         $('#tableDisplay').show();
         $("#map_content").hide();

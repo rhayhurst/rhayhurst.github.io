@@ -81,6 +81,7 @@ files.addEventListener("change", function (e) {
     //document.getElementById('cancel').removeAttribute('disabled');
     //$("#cancelAll").show();
     $('#drag').hide();
+    $('.target-image input[type="text"]').css('pointer-events','none');
     var files = e.target.files;
     for (i = 0; i < files.length; i++) {
         var file = files[i];

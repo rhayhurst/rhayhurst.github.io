@@ -672,7 +672,8 @@
      * @type {number}
      */
     this.size = file.size;
-    this.lastModifiedDate = file.lastModifiedDate;
+    this.lastModifiedDate = file.lastModified
+
 
     /**
      * Relative file path

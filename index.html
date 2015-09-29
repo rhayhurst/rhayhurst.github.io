@@ -16,14 +16,21 @@
     <link rel="stylesheet" href="css/bootstrap-responsive.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/leaflet-locationpicker.css">
+    <link rel="stylesheet" href="css/jquery.datetimepicker.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="app.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src=" js/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/collapse.js"></script>
+    <script type="text/javascript" src="js/jquery.datetimepicker.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
+
     <script type="text/javascript" src="js/bootstrap-dialog.min.js"></script>
     <script type="text/javascript" src="js/exif.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
     <script type="text/javascript" src="js/leaflet-locationpicker.js"></script>
@@ -165,7 +172,7 @@
                     <tr ng-repeat="itemsGPS in imgTable.imageGPS">
                         <td style="text-align :left;vertical-align: middle;width: 125px;height: 117px;"><span>{{itemsGPS}}</span></td>
                     </tr>
-                </table>
+                </table>SS
             </div>
         </div>
         <div id="map_content" style="display:none;">
@@ -191,10 +198,10 @@
                            <div ng-show="$flow.files.length">
                                <img flow-img="file" />
                            </div>
-                           <input  placeholder="Name: {{file.name}}" type="text" name="{{file.name}}"/>
-                           <input  placeholder="Date: {{file.lastModifiedDate}}" type="text" name="date"/>
+                           <input  value="{{file.name}}" type="text" name="{{file.name}}"/>
+                           <input  id="Date{{$index}}" ng-click="chooseDate()" value="{{file.lastModifiedDate | date:'MM/dd/yyyy HH:mm a'}}" type="text" name="date"/>
                            <div>
-                               <input class="geoloc" id="{{$index}}" ng-click="chooseLocation()"type="text" placeholder="48.922499,-88.945313" val=""/>
+                               <input class="geoloc" id="{{$index}}" ng-click="chooseLocation()" type="text" value="48.922499,-88.945313" val=""/>
                            </div>
 
                        </div>

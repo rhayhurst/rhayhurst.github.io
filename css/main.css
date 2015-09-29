@@ -102,6 +102,7 @@ input[type="file"] {
 }
 input[type="text"] {
     width: 100%;
+    pointer-events: none;
 }
 .fileUpload {
     position: relative;
